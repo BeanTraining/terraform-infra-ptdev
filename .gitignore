@@ -1,3 +1,5 @@
+# Just standard .gitignore file for TFC
+
 **/.git/
 **/.aws/
 **/.idea/
