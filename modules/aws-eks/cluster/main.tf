@@ -11,7 +11,7 @@ locals {
 
 resource "aws_eks_cluster" "bean" {
   name     = local.cluster_name
-  role_arn = aws_iam_role.this.arn
+  role_arn = aws_iam_role.bean.arn
   version  = var.kubernetes_version
 
   enabled_cluster_log_types = [
@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "bean" {
     endpoint_public_access  = var.endpoint_public_access
 
     security_group_ids = [
-      aws_security_group.this.id
+      aws_security_group.bean.id
     ]
 
     subnet_ids = var.subnet_ids
@@ -53,7 +53,7 @@ resource "aws_iam_openid_connect_provider" "bean" {
     var.thumbprint
   ]
 
-  url = aws_eks_cluster.this.identity.0.oidc.0.issuer
+  url = aws_eks_cluster.bean.identity.0.oidc.0.issuer
 }
 
 resource "aws_security_group" "bean" {
