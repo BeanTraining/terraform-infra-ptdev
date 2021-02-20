@@ -1,5 +1,5 @@
 module "cluster" {
-  source = "terraform-aws-eks-cluster"
+  source = "../../../modules/aws-eks/cluster"
 
   cluster_name       = local.cluster_name
   kubernetes_version = var.kubernetes_version
