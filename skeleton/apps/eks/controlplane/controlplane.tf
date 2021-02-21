@@ -14,5 +14,5 @@ module "cluster" {
   bounded_context = var.bounded_context
   data_class      = var.data_class
   owner           = var.owner
-  site            = var.mox_site
+  site            = var.bean_site
 }
