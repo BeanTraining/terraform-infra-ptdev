@@ -63,3 +63,9 @@ variable "tf_tags" {
 
   type = map(string)
 }
+
+variable "owner" {
+  description = "Bean Owner value for Core Foundation resources"
+
+  type = string
+}
