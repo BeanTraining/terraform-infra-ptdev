@@ -60,7 +60,7 @@ variable "vault_cidr_blocks" {
 }
 
 variable "tfc_cidr_blocks" {
-  description = "tfe CIDRs from crossenv - enable access from tfe to eks "
+  description = "tfc CIDRs from crossenv - enable access from tfc to eks "
 
   type = list(string)
 }
@@ -73,7 +73,7 @@ variable "owner" {
 }
 
 variable "bean_site" {
-  description = "Mox site - primary or secondary"
+  description = "Bean Academy site - primary or secondary"
 
   type = string
 }
