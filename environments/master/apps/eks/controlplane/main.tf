@@ -11,4 +11,7 @@ module "skeleton" {
     var.tfe_cidr_blocks,
     var.vault_cidr_blocks,
   )
+  
+  owner    = var.owner
+  mox_site = var.bean_site
 }
