@@ -59,7 +59,7 @@ variable "vault_cidr_blocks" {
   type = list(string)
 }
 
-variable "tfe_cidr_blocks" {
+variable "tfc_cidr_blocks" {
   description = "tfe CIDRs from crossenv - enable access from tfe to eks "
 
   type = list(string)
@@ -72,7 +72,7 @@ variable "owner" {
   type    = string
 }
 
-variable "mox_site" {
+variable "bean_site" {
   description = "Mox site - primary or secondary"
 
   type = string
