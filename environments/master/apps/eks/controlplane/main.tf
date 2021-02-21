@@ -13,5 +13,5 @@ module "skeleton" {
   )
   
   owner    = var.owner
-  mox_site = var.bean_site
+  bean_site = var.bean_site
 }
