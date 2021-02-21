@@ -65,14 +65,6 @@ locals {
     },
   )
 
-  aviatrix = merge(
-    local.common,
-    {
-      "bean.bounded_context" = lower(var.bounded_context)
-      "bean.data_class"      = lower(var.data_class)
-    },
-  )
-
   dx_mandatory = local.common_core_mandatory
   dx_optional  = local.common_core_optional
   dx = merge(
