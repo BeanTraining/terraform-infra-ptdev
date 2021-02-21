@@ -8,7 +8,7 @@ module "skeleton" {
   env_vpn_subnet_cidrs = var.env_vpn_cidr_blocks
   eks_ingress_443_cidrs = concat(
     var.spinnaker_cidr_blocks,
-    var.tfe_cidr_blocks,
+    var.tfc_cidr_blocks,
     var.vault_cidr_blocks,
   )
   
