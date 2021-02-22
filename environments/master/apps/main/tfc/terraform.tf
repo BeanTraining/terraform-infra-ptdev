@@ -1,5 +1,5 @@
-data "tfe_workspace" "sg-dev-main-apps-vpc" {
-  name           = "sg-dev-main-apps-vpc"
+data "tfe_workspace" "sg-dev-main-apps-example" {
+  name           = "sg-dev-main-apps-example"
   organization   = "BeanTraining"
 }
 
@@ -11,6 +11,6 @@ resource "tfe_variable" "test" {
   key          = "bean_site"
   value        = "bean.academy"
   category     = "terraform"
-  workspace_id = data.tfe_workspace.sg-dev-main-apps-vpc.id
+  workspace_id = data.tfe_workspace.sg-dev-main-apps-example.id
   description  = "a useful description"
 }
