@@ -11,6 +11,6 @@ resource "tfe_agent_pool" "bean-agent-pool" {
 resource "tfe_workspace" "sg-dev-main-apps-vpc" {
   name           = "sg-dev-main-apps-vpc"
   organization   = tfe_organization.bean-training.id
-  agent_pool_id  = tfe_organization.bean-agent-pool.id
+  agent_pool_id  = tfe_agent_pool.bean-agent-pool.id
   execution_mode = "agent"
 }
