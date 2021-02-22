@@ -16,6 +16,7 @@ resource "tfe_variable" "example" {
 }
 
 resource "tfe_workspace" "sg-dev-main-apps-vpc" {
+  terraform_version   = "0.14.7"
   name                = "sg-dev-main-apps-vpc"
   organization        = "BeanTraining"
   speculative_enabled = false
