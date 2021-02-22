@@ -3,6 +3,10 @@ data "tfe_workspace" "sg-dev-main-apps-vpc" {
   organization   = "BeanTraining"
 }
 
+provider "tfe" {
+  hostname = "app.terraform.io" # Terraform Cloud
+}
+
 resource "tfe_variable" "test" {
   key          = "bean_site"
   value        = "bean.academy"
