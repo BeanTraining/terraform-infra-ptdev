@@ -9,7 +9,7 @@ resource "tfe_agent_pool" "bean-agent-pool" {
 }
 
 resource "tfe_workspace" "sg-dev-main-apps-vpc " {
-  name           = "sg-dev-main-apps-vpc "
+  name           = "sg_dev_main_apps_vpc "
   organization   = tfe_organization.bean-training.id
   agent_pool_id  = tfe_organization.bean-agent-pool.id
   execution_mode = "agent"
