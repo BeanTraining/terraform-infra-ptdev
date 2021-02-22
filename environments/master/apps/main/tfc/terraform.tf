@@ -1,4 +1,4 @@
-resource "tfe_organization" "bean-training" {
+data "tfe_organization" "bean-training" {
   name  = "BeanTraining"
   email = "peterbean410@gmail.com"
 }
