@@ -16,6 +16,12 @@ resource "tfe_variable" "example" {
 }
 
 resource "tfe_workspace" "sg-dev-main-apps-vpc" {
-  name           = "sg-dev-main-apps-vpc"
-  organization   = "BeanTraining"
+  name                = "sg-dev-main-apps-vpc"
+  organization        = "BeanTraining"
+  speculative_enabled = false
+  working_directory   = "/environments/master/apps/main/vpc"
+  vcs_repo            = {
+    identifier  = "BeanTraining/terraform-infra"
+    branch      = "dev"
+    }
 }
