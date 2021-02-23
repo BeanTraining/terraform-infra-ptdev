@@ -11,7 +11,7 @@ provider "tfe" {
 }
 
 variable "github_oauth_token" {
-   type = "string"
+   type = string
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
@@ -43,6 +43,6 @@ resource "tfe_workspace" "sg-dev-main-apps-vpc" {
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
     branch           = "dev"
-    oauth_token_id   = tfe_oauth_client.bean-github.id
+    oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
 }
