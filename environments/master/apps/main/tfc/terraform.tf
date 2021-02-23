@@ -6,9 +6,13 @@ terraform {
    }
  }
 
- provider "tfe" {
+provider "tfe" {
    hostname = "app.terraform.io" # Terraform Cloud
- }
+}
+
+variable "github_oauth_token" {
+   type = "string"
+}
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
@@ -27,7 +31,7 @@ resource "tfe_oauth_client" "bean-github" {
   organization     = "BeanTraining"
   api_url          = "https://api.github.com"
   http_url         = "https://github.com"
-  oauth_token      = "bean-github-token"
+  oauth_token      = var.github_oauth_token
   service_provider = "github"
 }
 
