@@ -1,3 +1,14 @@
+terraform {
+   required_providers {
+     tfe = {
+       version = "~> 0.24.0"
+     }
+   }
+ }
+
+ provider "tfe" {
+   hostname = "app.terraform.io" # Terraform Cloud
+ }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
