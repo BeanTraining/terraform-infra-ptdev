@@ -28,7 +28,7 @@ resource "tfe_workspace" "sg-dev-main-apps-vpc" {
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
-  vcs_repo            = {
+  vcs_repo {
     identifier  = "BeanTraining/terraform-infra"
     branch      = "dev"
     }
