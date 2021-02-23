@@ -23,13 +23,22 @@ resource "tfe_variable" "example" {
   description  = "a useful description"
 }
 
+resource "tfe_oauth_client" "bean-github" {
+  organization     = "BeanTraining"
+  api_url          = "https://api.github.com"
+  http_url         = "https://github.com"
+  oauth_token      = "bean-github-token"
+  service_provider = "github"
+}
+
 resource "tfe_workspace" "sg-dev-main-apps-vpc" {
   name                = "sg-dev-main-apps-vpc"
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
   vcs_repo {
-    identifier  = "BeanTraining/terraform-infra"
-    branch      = "dev"
+    identifier       = "BeanTraining/terraform-infra"
+    branch           = "dev"
+    oauth_token_id   = tfe_oauth_client.bean-github.id
     }
 }
