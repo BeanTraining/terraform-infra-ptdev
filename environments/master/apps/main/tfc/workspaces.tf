@@ -48,10 +48,15 @@ resource "tfe_workspace" "bean" {
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
+  trigger_prefixes    = [
+     "/environments/master/apps/main/vpc",
+     "/environments/master/apps/main/tfc/releases"
+     ]
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
     branch           = "dev"
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
+  auto_apply         = true
 }
 
