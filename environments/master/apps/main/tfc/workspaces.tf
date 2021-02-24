@@ -38,8 +38,8 @@ variable "shared_environment_variables" {
     type = map(string)
     default = {
        AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = local.aws_access_key_id,
-       AWS_SECRET_ACCESS_KEY = local.aws_secret_access_key
+       AWS_ACCESS_KEY_ID = "local.aws_access_key_id",
+       AWS_SECRET_ACCESS_KEY = "${local.aws_secret_access_key}"
      }
 }
 
