@@ -65,15 +65,4 @@ resource "tfe_workspace" "bean" {
   auto_apply         = true
 }
 
-  for_each = {
-    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
-      workspace_name = pair[0]
-      workspace_id   = tfe_workspace.bean[pair[0]].id
-      name           = pair[1]
-      value          = local.shared_environment_variables[pair[1]]
-    }
-  }
-
-  workspace_id = each.value.workspace_id
-
 
