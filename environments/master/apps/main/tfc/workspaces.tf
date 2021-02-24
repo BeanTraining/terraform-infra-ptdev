@@ -30,17 +30,11 @@ variable "aws_secret_access_key" {
 }
 
 locals {
-   aws_access_key_id = "var.aws_access_key_id"
-   aws_secret_access_key = "var.aws_secret_access_key"
-}
-
-variable "shared_environment_variables" {
-    type = map(string)
-    default = {
+   shared_environment_variables = { 
        AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = "local.aws_access_key_id",
-       AWS_SECRET_ACCESS_KEY = "${local.aws_secret_access_key}"
-     }
+       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
+       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+   }
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
@@ -82,7 +76,7 @@ resource "tfe_variable" "bean-environment" {
   # combination of workspace and environment variable,
   # so this one has a more complicated for_each expression.
   for_each = {
-    for pair in setproduct(var.workspaces, keys(var.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
+    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
       workspace_name = pair[0]
       workspace_id   = tfe_workspace.bean[pair[0]].id
       name           = pair[1]
