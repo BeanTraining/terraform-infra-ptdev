@@ -85,7 +85,7 @@ resource "tfe_variable" "bean-environment" {
   #  }
   # }
      
-  count = length(workspace_environment_variables)
+  count = length(local.workspace_environment_variables)
 
   workspace_id = tfe_workspace.bean[local.workspace_environment_variables[count.index][0]].id # tfe_workspace.bean[pair[0]].id
 
