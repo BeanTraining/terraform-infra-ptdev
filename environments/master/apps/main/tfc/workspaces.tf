@@ -1,3 +1,6 @@
+locals {
+   environment = "master"
+}
 terraform {
    required_providers {
      tfe = {
@@ -17,13 +20,13 @@ variable "github_oauth_token" {
 variable "workspaces" {
    type = list(string)
    default = [
-      "main-apps-vpc"
+      "${local.environment}-apps-main-vpc"
    ] 
 }
 
-variable "branches" {
-   type = list(string)
-   default = ["dev"]
+variable "branche" {
+   type = string
+   default = "dev"
 } 
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
@@ -48,12 +51,8 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each = {
-    for pair in setproduct(var.branches, var.workspaces) : "${pair[0]}/${pair[1]}" => {
-      workspace_name = "sg-dev-${pair[1]}"
-    }
-  }
-  name                = each.value.workspace_name
+  for_each            = var.workspaces
+  name                = each.key
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
