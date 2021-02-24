@@ -29,12 +29,17 @@ variable "aws_secret_access_key" {
    type = string
 }
 
+locals {
+   aws_access_key_id = var.aws_access_key_id
+   aws_secret_access_key = var.aws_secret_access_key
+}
+
 variable "shared_environment_variables" {
     type = map(string)
     default = {
        AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
-       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+       AWS_ACCESS_KEY_ID = local.aws_access_key_id,
+       AWS_SECRET_ACCESS_KEY = local.aws_secret_access_key
      }
 }
 
