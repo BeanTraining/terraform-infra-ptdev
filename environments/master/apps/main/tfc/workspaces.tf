@@ -22,7 +22,7 @@ variable "workspaces" {
 }
 
 variable "shared_environment_variables" {
-    type = set(
+    type = map(string)
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
