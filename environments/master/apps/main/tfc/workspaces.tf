@@ -21,7 +21,7 @@ variable "github_oauth_token" {
 }
 
 variable "workspaces" {
-   type = set(string)
+   type = list(string)
    default = [
       "sg-dev-main-apps-vpc"
    ] 
