@@ -14,6 +14,13 @@ variable "github_oauth_token" {
    type = string
 }
 
+variable "workspaces" {
+   type = set(string)
+   default = [
+      "sg-dev-main-apps-vpc"
+   ] 
+}
+
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
   organization   = "BeanTraining"
@@ -35,8 +42,9 @@ resource "tfe_oauth_client" "bean-github" {
   service_provider = "github"
 }
 
-resource "tfe_workspace" "sg-dev-main-apps-vpc" {
-  name                = "sg-dev-main-apps-vpc"
+resource "tfe_workspace" "bean" {
+  for_each            = var.workspaces
+  name                = each.key
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
