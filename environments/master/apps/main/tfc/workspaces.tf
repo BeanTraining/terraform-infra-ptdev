@@ -98,7 +98,7 @@ resource "tfe_variable" "bean-environment-aws_access_key_id" {
   category  = "env"
   key       = "AWS_ACCESS_KEY_ID"
   value     = var.aws_access_key_id
-  sensitive = false
+  sensitive = true
 }
    
 resource "tfe_variable" "bean-environment-aws_secret_access_key" {
@@ -109,5 +109,5 @@ resource "tfe_variable" "bean-environment-aws_secret_access_key" {
   category  = "env"
   key       = "AWS_SECRET_ACCESS_KEY"
   value     = var.aws_secret_access_key
-  sensitive = false
+  sensitive = true
 }
