@@ -21,6 +21,11 @@ variable "workspaces" {
    ] 
 }
 
+variable "branch" {
+   type     = string
+   default  = "dev"
+}
+
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
   organization   = "BeanTraining"
@@ -54,7 +59,7 @@ resource "tfe_workspace" "bean" {
      ]
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
-    branch           = "dev"
+    branch           = var.branch
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
   auto_apply         = false
