@@ -1,3 +1,11 @@
+locals {
+   shared_environment_variables = { 
+       AWS_REGION = "ap-southeast-1",
+       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
+       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+   }
+}
+
 terraform {
    required_providers {
      tfe = {
@@ -27,14 +35,6 @@ variable "aws_access_key_id" {
 
 variable "aws_secret_access_key" {
    type = string
-}
-
-locals {
-   shared_environment_variables = { 
-       AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
-       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
-   }
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
@@ -80,7 +80,7 @@ resource "tfe_variable" "bean-environment" {
       workspace_name = pair[0]
       workspace_id   = tfe_workspace.bean[pair[0]].id
       name           = pair[1]
-      value          = var.shared_environment_variables[pair[1]]
+      value          = local.shared_environment_variables[pair[1]]
     }
   }
 
