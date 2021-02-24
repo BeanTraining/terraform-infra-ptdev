@@ -32,10 +32,6 @@ variable "shared_environment_variables" {
     )
 }
 
-variable "shared_environment_variables" {
-    type = map(string)
-}
-
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
   organization   = "BeanTraining"
