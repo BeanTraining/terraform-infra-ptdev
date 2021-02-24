@@ -54,3 +54,24 @@ resource "tfe_workspace" "bean" {
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
 }
+
+resource "tfe_variable" "bean-environment" {
+  # We'll need one tfe_variable instance for each
+  # combination of workspace and environment variable,
+  # so this one has a more complicated for_each expression.
+  for_each = {
+    for pair in setproduct(var.workspaces, keys(var.common_environment_variables)) : "${pair[0]}/${pair[1]}" => {
+      workspace_name = pair[0]
+      workspace_id   = tfe_workspace.example[pair[0]].id
+      name           = pair[1]
+      value          = var.common_environment_variables[pair[1]]
+    }
+  }
+
+  workspace_id = each.value.workspace_id
+
+  category  = "env"
+  key       = each.value.name
+  value     = each.value.value
+  sensitive = true
+}
