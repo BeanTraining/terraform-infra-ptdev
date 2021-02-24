@@ -87,5 +87,27 @@ resource "tfe_variable" "bean-environment" {
   category  = "env"
   key       = each.value.name
   value     = each.value.value
-  sensitive = true
+  sensitive = false
+}
+   
+resource "tfe_variable" "bean-environment-aws_access_key_id" {
+  count = length(var.workspaces)
+
+  workspace_id = var.workspaces[count.index].workspace_id
+
+  category  = "env"
+  key       = "AWS_ACCESS_KEY_ID"
+  value     = var.aws_access_key_id
+  sensitive = false
+}
+   
+resource "tfe_variable" "bean-environment-aws_secret_access_key" {
+  count = length(var.workspaces)
+
+  workspace_id = var.workspaces[count.index].workspace_id
+
+  category  = "env"
+  key       = "AWS_SECRET_ACCESS_KEY"
+  value     = var.aws_secret_access_key
+  sensitive = false
 }
