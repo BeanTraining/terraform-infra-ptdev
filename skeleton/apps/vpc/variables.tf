@@ -28,7 +28,7 @@ variable "environment_short" {
 }
 
 variable "site" {
-  description = "Mox site - primary or secondary"
+  description = "Bean site - primary or secondary"
 
   type = string
 }
