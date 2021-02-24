@@ -1,3 +1,8 @@
+locals {
+   shared_environment_variables = { 
+       AWS_REGION = "ap-southeast-1",
+   }
+}
 
 terraform {
    required_providers {
@@ -29,15 +34,6 @@ variable "aws_access_key_id" {
 variable "aws_secret_access_key" {
    type = string
 }
-locals {
-   shared_environment_variables = { 
-       AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
-       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
-   }
-   workspace_environment_variables = tolist(setproduct(var.workspaces, keys(local.shared_environment_variables)))
-}
-
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
@@ -77,21 +73,19 @@ resource "tfe_variable" "bean-environment" {
   # We'll need one tfe_variable instance for each
   # combination of workspace and environment variable,
   # so this one has a more complicated for_each expression.
-  #for_each = {
-  #  for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
-  #    workspace_name = pair[0]
-  #    workspace_id   = tfe_workspace.bean[pair[0]].id
-  #    name           = pair[1]
-  #    value          = local.shared_environment_variables[pair[1]]
-  #  }
-  # }
-     
-  count = length(local.workspace_environment_variables)
+  for_each = {
+    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
+      workspace_name = pair[0]
+      workspace_id   = tfe_workspace.bean[pair[0]].id
+      name           = pair[1]
+      value          = local.shared_environment_variables[pair[1]]
+    }
+  }
 
-  workspace_id = tfe_workspace.bean[local.workspace_environment_variables[count.index][0]].id # tfe_workspace.bean[pair[0]].id
+  workspace_id = each.value.workspace_id
 
   category  = "env"
-  key       = local.workspace_environment_variables[count.index][1] # pair[1]
-  value     = local.shared_environment_variables[local.workspace_environment_variables[count.index][1]] # local.shared_environment_variables[pair[1]]
+  key       = each.value.name
+  value     = each.value.value
   sensitive = true
 }
