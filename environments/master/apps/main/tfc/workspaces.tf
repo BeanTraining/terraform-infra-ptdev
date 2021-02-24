@@ -48,8 +48,12 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each            = toset(var.workspaces)
-  name                = "sg-dev-${each.key}"
+  for_each = {
+    for pair in setproduct(var.workspaces, keys(var.branches)) : "${pair[0]}/${pair[1]}" => {
+      workspace_name = "sg-dev-${pair[0]}"
+    }
+  }
+  name                = each.value.workspace_name
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
