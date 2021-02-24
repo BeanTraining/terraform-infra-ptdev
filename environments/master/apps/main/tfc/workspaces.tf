@@ -50,7 +50,7 @@ resource "tfe_oauth_client" "bean-github" {
 resource "tfe_workspace" "bean" {
   for_each = {
     for pair in setproduct(var.branches, var.workspaces) : "${pair[0]}/${pair[1]}" => {
-      workspace_name = "sg-dev-${pair[0]}"
+      workspace_name = "sg-dev-${pair[1]}"
     }
   }
   name                = each.value.workspace_name
