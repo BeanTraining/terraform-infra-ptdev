@@ -17,9 +17,14 @@ variable "github_oauth_token" {
 variable "workspaces" {
    type = list(string)
    default = [
-      "sg-dev-main-apps-vpc"
+      "main-apps-vpc"
    ] 
 }
+
+variable "branches" {
+   type = list(string)
+   default = ["dev"]
+} 
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
@@ -44,7 +49,7 @@ resource "tfe_oauth_client" "bean-github" {
 
 resource "tfe_workspace" "bean" {
   for_each            = toset(var.workspaces)
-  name                = each.key
+  name                = join("-",["sg","dev",each.key])
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
@@ -59,4 +64,16 @@ resource "tfe_workspace" "bean" {
     }
   auto_apply         = true
 }
+
+  for_each = {
+    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0]}/${pair[1]}" => {
+      workspace_name = pair[0]
+      workspace_id   = tfe_workspace.bean[pair[0]].id
+      name           = pair[1]
+      value          = local.shared_environment_variables[pair[1]]
+    }
+  }
+
+  workspace_id = each.value.workspace_id
+
 
