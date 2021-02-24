@@ -1,6 +1,6 @@
 locals {
   tags = merge(
-    module.mox_tags.vpc_mandatory,
+    module.bean_tags.vpc_mandatory,
     var.additional_tags,
   )
 }
