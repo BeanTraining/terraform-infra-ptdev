@@ -1,11 +1,3 @@
-locals {
-   shared_environment_variables = { 
-       AWS_REGION = "ap-southeast-1",
-       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
-       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
-   }
-   workspace_environment_variables = setproduct(var.workspaces, keys(local.shared_environment_variables))
-}
 
 terraform {
    required_providers {
@@ -37,6 +29,15 @@ variable "aws_access_key_id" {
 variable "aws_secret_access_key" {
    type = string
 }
+locals {
+   shared_environment_variables = { 
+       AWS_REGION = "ap-southeast-1",
+       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
+       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+   }
+   workspace_environment_variables = setproduct(var.workspaces, keys(local.shared_environment_variables))
+}
+
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
