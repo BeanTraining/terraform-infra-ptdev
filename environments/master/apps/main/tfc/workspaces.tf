@@ -49,7 +49,7 @@ resource "tfe_oauth_client" "bean-github" {
 
 resource "tfe_workspace" "bean" {
   for_each            = toset(var.workspaces)
-  name                = join("-",["sg","dev",each.key])
+  name                = join("-",["master","sg","dev",each.key])
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
@@ -62,7 +62,7 @@ resource "tfe_workspace" "bean" {
     branch           = "dev"
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
-  auto_apply         = true
+  auto_apply         = false
 }
 
 
