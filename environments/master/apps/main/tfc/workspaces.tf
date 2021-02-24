@@ -1,6 +1,3 @@
-locals {
-   environment = "master"
-}
 terraform {
    required_providers {
      tfe = {
@@ -20,14 +17,9 @@ variable "github_oauth_token" {
 variable "workspaces" {
    type = list(string)
    default = [
-      "${local.environment}-apps-main-vpc"
+      "dev-sg-master-apps-main-vpc"
    ] 
 }
-
-variable "branche" {
-   type = string
-   default = "dev"
-} 
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
   name           = "sg-dev-main-apps-example"
