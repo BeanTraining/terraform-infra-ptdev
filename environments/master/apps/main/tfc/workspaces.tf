@@ -93,7 +93,7 @@ resource "tfe_variable" "bean-environment" {
 resource "tfe_variable" "bean-environment-aws_access_key_id" {
   count = length(var.workspaces)
 
-  workspace_id = var.workspaces[count.index].workspace_id
+  workspace_id = tfe_workspace.bean[var.workspaces[count.index]].id
 
   category  = "env"
   key       = "AWS_ACCESS_KEY_ID"
