@@ -35,7 +35,7 @@ locals {
        AWS_ACCESS_KEY_ID = var.aws_access_key_id,
        AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
    }
-   workspace_environment_variables = setproduct(var.workspaces, keys(local.shared_environment_variables))
+   workspace_environment_variables = tolist(setproduct(var.workspaces, keys(local.shared_environment_variables)))
 }
 
 
