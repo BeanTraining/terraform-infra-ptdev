@@ -23,6 +23,17 @@ variable "workspaces" {
 
 variable "shared_environment_variables" {
     type = map(string)
+    default = merge({
+         AWS_REGION = "ap-southeast-1"
+      }, {        
+       AWS_ACCESS_KEY_ID = var.aws_access_key_id,
+       AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+     }
+    )
+}
+
+variable "shared_environment_variables" {
+    type = map(string)
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
