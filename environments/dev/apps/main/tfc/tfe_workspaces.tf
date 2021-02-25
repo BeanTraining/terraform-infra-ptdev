@@ -23,7 +23,7 @@ variable "workspaces" {
       }))
    default = [
       {
-      name = "dev-sg-master-apps-main-vpc"
+      name = "sg-master-apps-main-vpc"
       working_directory = "dev-sg-master-apps-main-vpc"
       branch = "dev"
       trigger_prefixes = [
@@ -55,8 +55,8 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each = {for ws in var.workspaces:  ws.name => ws}
-  name                = "${each.value.name}"
+  for_each = {for ws in var.workspaces:  "${ws.branch}-${ws.name}" => ws}
+  name                = "${each.value.branch}-${each.value.name}"
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
