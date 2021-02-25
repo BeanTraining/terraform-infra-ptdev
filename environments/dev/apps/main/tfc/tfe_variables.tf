@@ -17,9 +17,9 @@ resource "tfe_variable" "bean-environment" {
   # combination of workspace and environment variable,
   # so this one has a more complicated for_each expression.
   for_each = {
-    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0].name}/${pair[1]}" => {
-      workspace_name = pair[0].name
-      workspace_id   = tfe_workspace.bean[pair[0].name].id
+    for pair in setproduct(var.workspaces, keys(local.shared_environment_variables)) : "${pair[0].branch}-${pair[0].name}/${pair[1]}" => {
+      workspace_name = "${pair[0].branch}-${pair[0].name}"
+      workspace_id   = tfe_workspace.bean["${pair[0].branch}-${pair[0].name}"].id
       name           = pair[1]
       value          = local.shared_environment_variables[pair[1]]
     }
@@ -36,7 +36,7 @@ resource "tfe_variable" "bean-environment" {
 resource "tfe_variable" "bean-environment-aws_access_key_id" {
   count = length(var.workspaces)
 
-  workspace_id = tfe_workspace.bean[var.workspaces[count.index].name].id
+  workspace_id = tfe_workspace.bean["${var.workspaces[count.index].branch}-${var.workspaces[count.index].name}"].id
 
   category  = "env"
   key       = "AWS_ACCESS_KEY_ID"
@@ -47,7 +47,7 @@ resource "tfe_variable" "bean-environment-aws_access_key_id" {
 resource "tfe_variable" "bean-environment-aws_secret_access_key" {
   count = length(var.workspaces)
 
-  workspace_id = tfe_workspace.bean[var.workspaces[count.index].name].id
+  workspace_id = tfe_workspace.bean["${var.workspaces[count.index].branch}-${var.workspaces[count.index].name}"].id
 
   category  = "env"
   key       = "AWS_SECRET_ACCESS_KEY"
