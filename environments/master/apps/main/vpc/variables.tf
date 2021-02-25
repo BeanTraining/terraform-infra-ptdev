@@ -9,3 +9,7 @@ variable "environment" {
 variable "cidr_block" {
   type = string
 }
+
+variable "bounded_context" {
+  type = string
+}  
