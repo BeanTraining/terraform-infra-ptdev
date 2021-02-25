@@ -15,20 +15,20 @@ variable "github_oauth_token" {
 }
 
 variable "workspaces" {
-   type = map(object({
+   type = list(object({
       name = string
       working_directory = string
       trigger_prefixes = list(string)
       }))
-   default = {
-      "vpc-main-apps" = {
+   default = [
+      {
       name = "dev-sg-master-apps-main-vpc"
       working_directory = "dev-sg-master-apps-main-vpc"
       trigger_prefixes = [
          "dev-sg-master-apps-main-vpc"
          ]
       }
-     }
+     ]
 }
 
 variable "branch" {
@@ -58,8 +58,8 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each            = var.workspaces
-  name                = each.value.name
+  for_each = {for ws in var.workspaces:  ws.name => ws}
+  name                = "${each.value.name}"
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
