@@ -18,7 +18,7 @@ variable "workspaces" {
    type = list(object({
       name = string
       working_directory = string
-      trigger_prefixes = optional(list(string))
+      trigger_prefixes = list(string)
       environment = string
       }))
    default = [
@@ -26,6 +26,7 @@ variable "workspaces" {
       name = "sg-apps-main-vpc"
       working_directory = "/environments/master/apps/main/vpc"
       environment = "dev"
+      trigger_prefixes = []
       }
      ]
 }
