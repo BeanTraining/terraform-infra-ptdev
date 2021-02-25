@@ -10,6 +10,9 @@ variable "aws_access_key_id" {
 variable "aws_secret_access_key" {
    type = string
 }
+variable "aws_account_ids" {
+   type = map(string)
+}
 
 resource "tfe_variable" "bean-environment" {
   # We'll need one tfe_variable instance for each
@@ -53,3 +56,16 @@ resource "tfe_variable" "bean-environment-aws_secret_access_key" {
   value     = var.aws_secret_access_key
   sensitive = true
 }
+
+resource "tfe_variable" "bean-environment-aws_account_ids" {
+  count = length(var.workspaces)
+
+  workspace_id = tfe_workspace.bean["${var.workspaces[count.index].environment}-${var.workspaces[count.index].name}"].id
+
+  category  = "terraform"
+  key       = "aws_account_ids"
+  value     = var.aws_account_ids
+  sensitive = true
+}
+
+   
