@@ -1,6 +1,6 @@
 output "bean_vpc_id" {
   description = "ID of the created VPC"
-  value       = "${aws_vpc.bean.id}"
+  value       = aws_vpc.bean.id
 }
 
 output "bean_vpc_default_route_table_id" {
