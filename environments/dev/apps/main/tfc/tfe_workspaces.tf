@@ -58,7 +58,7 @@ resource "tfe_workspace" "bean" {
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = each.value.working_directory
-  trigger_prefixes    = merge(each.value.trigger_prefixes,
+  trigger_prefixes    = concat(each.value.trigger_prefixes,
      [
      each.value.working_directory,
      "/environments/${each.value.environment}/apps/main/tfc/releases"
