@@ -19,21 +19,18 @@ variable "workspaces" {
       name = string
       working_directory = string
       trigger_prefixes = list(string)
+      branch = string
       }))
    default = [
       {
       name = "dev-sg-master-apps-main-vpc"
       working_directory = "dev-sg-master-apps-main-vpc"
+      branch = "dev"
       trigger_prefixes = [
          "dev-sg-master-apps-main-vpc"
          ]
       }
      ]
-}
-
-variable "branch" {
-   type     = string
-   default  = "dev"
 }
 
 data "tfe_workspace" "sg-dev-main-apps-example" {
@@ -69,10 +66,10 @@ resource "tfe_workspace" "bean" {
      ]
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
-    branch           = var.branch
+    branch           = each.value.branch
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
-  auto_apply         = var.branch == "master" ? false : true
+  auto_apply         = each.value.branch == "master" ? false : true
 }
 
 
