@@ -59,7 +59,7 @@ resource "tfe_oauth_client" "bean-github" {
 
 resource "tfe_workspace" "bean" {
   for_each            = toset(var.workspaces)
-  name                = each.key.name
+  name                = each.value.name
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
