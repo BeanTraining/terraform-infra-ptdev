@@ -24,7 +24,7 @@ variable "workspaces" {
    default = [
       {
       name = "sg-apps-main-vpc"
-      working_directory = "dev-sg-apps-main-vpc"
+      working_directory = "/environments/master/apps/main/vpc"
       environment = "dev"
       trigger_prefixes = [
          "dev-sg-apps-main-vpc"
@@ -59,7 +59,7 @@ resource "tfe_workspace" "bean" {
   name                = "${each.value.environment}-${each.value.name}"
   organization        = "BeanTraining"
   speculative_enabled = false
-  working_directory   = "/environments/master/apps/main/vpc"
+  working_directory   = each.value.working_directory
   trigger_prefixes    = [
      "/environments/master/apps/main/vpc",
      "/environments/master/apps/main/tfc/releases"
