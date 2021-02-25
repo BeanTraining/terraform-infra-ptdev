@@ -62,7 +62,7 @@ resource "tfe_workspace" "bean" {
     branch           = var.branch
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
-  auto_apply         = false
+  auto_apply         = var.branch == "master" ? false : true
 }
 
 
