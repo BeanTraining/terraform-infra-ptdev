@@ -23,9 +23,9 @@ variable "workspaces" {
       }))
    default = [
       {
-      name = "sg-apps-main-vpc"
+      name = "apps-main-vpc"
       working_directory = "/environments/master/apps/main/vpc"
-      environment = "dev"
+      environment = "dev-sg"
       trigger_prefixes = []
       }
      ]
