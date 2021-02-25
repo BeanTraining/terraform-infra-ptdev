@@ -26,6 +26,7 @@ variable "workspaces" {
       working_directory = "dev-sg-master-apps-main-vpc"
       trigger_prefixes = [
          "dev-sg-master-apps-main-vpc"
+         ]
       }
    ] 
 }
