@@ -26,9 +26,7 @@ variable "workspaces" {
       name = "sg-apps-main-vpc"
       working_directory = "/environments/master/apps/main/vpc"
       environment = "dev"
-      trigger_prefixes = [
-         "dev-sg-apps-main-vpc"
-         ]
+      trigger_prefixes = []
       }
      ]
 }
@@ -60,10 +58,12 @@ resource "tfe_workspace" "bean" {
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = each.value.working_directory
-  trigger_prefixes    = [
-     "/environments/master/apps/main/vpc",
-     "/environments/master/apps/main/tfc/releases"
+  trigger_prefixes    = merge(each.value.trigger_prefixes,
+     [
+     each.value.working_directory,
+     "/environments/${each.value.environment}/apps/main/tfc/releases"
      ]
+     )
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
     branch           = each.value.environment
