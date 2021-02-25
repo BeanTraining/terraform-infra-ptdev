@@ -19,7 +19,7 @@ variable "workspaces" {
       name = string
       working_directory = string
       trigger_prefixes = list(string)
-      branch = string
+      environment = string
       }))
    default = [
       {
@@ -55,8 +55,8 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each = {for ws in var.workspaces:  "${ws.branch}-${ws.name}" => ws}
-  name                = "${each.value.branch}-${each.value.name}"
+  for_each = {for ws in var.workspaces:  "${ws.environment}-${ws.name}" => ws}
+  name                = "${each.value.environment}-${each.value.name}"
   organization        = "BeanTraining"
   speculative_enabled = false
   working_directory   = "/environments/master/apps/main/vpc"
@@ -66,10 +66,10 @@ resource "tfe_workspace" "bean" {
      ]
   vcs_repo {
     identifier       = "BeanTraining/terraform-infra"
-    branch           = each.value.branch
+    branch           = each.value.environment
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
-  auto_apply         = each.value.branch == "master" ? false : true
+  auto_apply         = each.value.environment == "master" ? false : true
 }
 
 
