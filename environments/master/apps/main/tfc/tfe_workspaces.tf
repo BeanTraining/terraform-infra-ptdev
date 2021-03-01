@@ -44,7 +44,7 @@ auto_apply = bool
       app_type = "apps"
       app_category = "main"
       app_name = "vpc2"
-         auto_apply = false
+         auto_apply = true
          depends_on = "apps-main-vpc"
       trigger_prefixes = []
       }
