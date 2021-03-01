@@ -10,6 +10,11 @@ provider "tfe" {
    hostname = "app.terraform.io" # Terraform Cloud
 }
 
+data "tfe_workspace" "bean-tfc" {
+   name = "${var.environment}-terraform-cloud"
+   organization = "BeanTraining"
+   }
+
 variable "github_oauth_token" {
    type = string
 }
@@ -73,6 +78,6 @@ resource "tfe_workspace" "bean" {
 resource "tfe_run_trigger" "bean" {
   for_each = {for ws in var.workspaces:  "${var.environment}-${ws.app_type}-${ws.app_category}-${ws.app_name}" => ws}
   workspace_id = tfe_workspace.bean["${var.environment}-${each.value.app_type}-${each.value.app_category}-${each.value.app_name}"].id
-  sourceable_id = each.value.depends_on == "" ? "${var.environment}-terraform-cloud" : each.value.depends_on
+  sourceable_id = each.value.depends_on == "" ? data.tfe_workspace.bean-tfc : each.value.depends_on
 }
 
