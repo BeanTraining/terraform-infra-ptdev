@@ -11,7 +11,6 @@ resource "aws_default_security_group" "bean" {
   tags = merge(
     {
       Name = "${var.app_name}-vpc",
-    },
-    var.tags
+    }
   )
 }
