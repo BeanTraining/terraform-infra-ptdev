@@ -21,6 +21,7 @@ variable "workspaces" {
       app_category = string
       app_name = string
 auto_apply = bool
+      depends_on = string
       trigger_prefixes = list(string)
       }))
    default = [
@@ -30,6 +31,7 @@ auto_apply = bool
       app_category = "main"
       app_name = "vpc"
          auto_apply = true
+         depends_on = ""
       trigger_prefixes = []
       }
      ]
@@ -68,4 +70,9 @@ resource "tfe_workspace" "bean" {
   auto_apply         = each.value.auto_apply
 }
 
+resource "tfe_run_trigger" "bean" {
+  for_each = {for ws in var.workspaces:  "${var.environment}-${ws.app_type}-${ws.app_category}-${ws.app_name}" => ws}
+  workspace_id = tfe_workspace.bean["${var.environment}-${each.value.app_type}-${each.value.app_category}-${each.value.app_name}"].id
+  sourceable_id = each.value.depends_on == "" ? "${var.environment}-terraform-cloud" : each.value.depends_on
+}
 
