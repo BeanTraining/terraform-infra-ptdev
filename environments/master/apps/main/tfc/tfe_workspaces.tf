@@ -16,10 +16,12 @@ variable "github_oauth_token" {
 
 variable "workspaces" {
    type = list(object({
-      name = string
-      working_directory = string
+      base_directory = string
+            app_type = string
+      app_category = string
+      app_name = string
+
       trigger_prefixes = list(string)
-      environment = string
       }))
    default = [
       {
