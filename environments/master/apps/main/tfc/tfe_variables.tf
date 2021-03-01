@@ -64,8 +64,9 @@ resource "tfe_variable" "bean-environment-aws_account_ids" {
 
   category  = "terraform"
   key       = "aws_account_ids"
-  value     = var.aws_account_ids
+  value     = "{apps = ${var.aws_account_ids.apps}}"
   sensitive = true
+  hcl = true
 }
 
    
