@@ -20,7 +20,7 @@ variable "workspaces" {
             app_type = string
       app_category = string
       app_name = string
-auto_apply = boolean
+auto_apply = bool
       trigger_prefixes = list(string)
       }))
    default = [
