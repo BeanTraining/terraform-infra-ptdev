@@ -20,7 +20,7 @@ variable "workspaces" {
             app_type = string
       app_category = string
       app_name = string
-
+auto_apply = boolean
       trigger_prefixes = list(string)
       }))
    default = [
@@ -29,6 +29,7 @@ variable "workspaces" {
       app_type = "apps"
       app_category = "main"
       app_name = "vpc"
+         auto_apply = true
       trigger_prefixes = []
       }
      ]
@@ -64,7 +65,7 @@ resource "tfe_workspace" "bean" {
     branch           = var.environment
     oauth_token_id   = tfe_oauth_client.bean-github.oauth_token_id
     }
-  auto_apply         = var.environment == "master" ? false : true
+  auto_apply         = each.value.auto_apply
 }
 
 
