@@ -23,25 +23,14 @@ variable "workspaces" {
       }))
    default = [
       {
-      name = "apps-main-vpc"
-      working_directory = "/environments/master/apps/main/vpc"
+      base_directory = "/environments/master"
+      app_type = "apps"
+      app_category = "main"
+      app_name = "vpc"
       environment = "dev-sg"
       trigger_prefixes = []
       }
      ]
-}
-
-data "tfe_workspace" "sg-dev-main-apps-example" {
-  name           = "sg-dev-main-apps-example"
-  organization   = "BeanTraining"
-}
-
-resource "tfe_variable" "example" {
-  key          = "bean_site"
-  value        = "bean.academy"
-  category     = "terraform"
-  workspace_id = data.tfe_workspace.sg-dev-main-apps-example.id
-  description  = "a useful description"
 }
 
 resource "tfe_oauth_client" "bean-github" {
@@ -53,11 +42,11 @@ resource "tfe_oauth_client" "bean-github" {
 }
 
 resource "tfe_workspace" "bean" {
-  for_each = {for ws in var.workspaces:  "${ws.environment}-${ws.name}" => ws}
-  name                = "${each.value.environment}-${each.value.name}"
+  for_each = {for ws in var.workspaces:  "${ws.environment}-${ws.app_type}-${ws.app_category}-${ws.app_name}" => ws}
+  name                = "${each.value.environment}-${each.value.app_type}-${each.value.app_category}-${each.value.app_name}"
   organization        = "BeanTraining"
   speculative_enabled = false
-  working_directory   = each.value.working_directory
+  working_directory   = "${each.value.base_directory}-${each.value.app_type}-${each.value.app_category}-${each.value.app_name}"
   trigger_prefixes    = concat(each.value.trigger_prefixes,
      [
      each.value.working_directory,
