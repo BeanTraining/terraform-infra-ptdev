@@ -1,6 +1,6 @@
 resource "aws_vpc" "bean" {
-  cidr_block           = var.cidr_block
-    tags = {
+  cidr_block = var.cidr_block
+  tags = {
     Name = var.app_name
   }
 }

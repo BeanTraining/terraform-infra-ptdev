@@ -8,4 +8,4 @@ variable "cidr_block" {
 
 variable "bounded_context" {
   type = string
-}  
+}
