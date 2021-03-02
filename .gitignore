@@ -13,6 +13,7 @@
 **/*.tfstate*
 
 **/*.tfvars
+!**/terraform.auto.tfvars
 !**/common.auto.tfvars
 !**/terraform.tfvars
 !**/*.vcs.tfvars
