@@ -69,12 +69,12 @@ resource "tfe_workspace" "bean" {
   name                = "${var.environment}-${each.value.app_type}-${each.value.app_category}-${each.value.app_name}"
   organization        = "BeanTraining"
   speculative_enabled = false
-  queue_all_runs      = false
+  queue_all_runs      = true
   working_directory   = "${each.value.base_directory}/${each.value.app_type}/${each.value.app_category}/${each.value.app_name}"
   trigger_prefixes = concat(each.value.trigger_prefixes,
     [
       "${each.value.base_directory}/${each.value.app_type}/${each.value.app_category}/${each.value.app_name}",
-      "/environments/${var.environment}/apps/main/tfc/releases"
+      "${each.value.base_directory}/apps/main/tfc/releases"
     ]
   )
   vcs_repo {
