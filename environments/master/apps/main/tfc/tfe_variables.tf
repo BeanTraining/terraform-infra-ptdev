@@ -1,17 +1,17 @@
 
 locals {
-   shared_environment_variables = { 
-       AWS_REGION = "ap-southeast-1",
-   }
+  shared_environment_variables = {
+    AWS_REGION = "ap-southeast-1",
+  }
 }
 variable "aws_access_key_id" {
-   type = string
+  type = string
 }
 variable "aws_secret_access_key" {
-   type = string
+  type = string
 }
 variable "aws_account_ids" {
-   type = map(string)
+  type = map(string)
 }
 
 resource "tfe_variable" "bean-environment" {
@@ -34,7 +34,7 @@ resource "tfe_variable" "bean-environment" {
   value     = each.value.value
   sensitive = false
 }
-   
+
 resource "tfe_variable" "bean-environment-aws_access_key_id" {
   count = length(var.workspaces)
 
@@ -45,7 +45,7 @@ resource "tfe_variable" "bean-environment-aws_access_key_id" {
   value     = var.aws_access_key_id
   sensitive = true
 }
-   
+
 resource "tfe_variable" "bean-environment-aws_secret_access_key" {
   count = length(var.workspaces)
 
@@ -66,7 +66,7 @@ resource "tfe_variable" "bean-environment-aws_account_ids" {
   key       = "aws_account_ids"
   value     = "{apps = ${var.aws_account_ids.apps}}"
   sensitive = true
-  hcl = true
+  hcl       = true
 }
 
-   
+
