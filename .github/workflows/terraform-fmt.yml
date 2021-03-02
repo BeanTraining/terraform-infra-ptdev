@@ -1,9 +1,6 @@
 name: Fix terraform file formatting
 
-on:
-  push:
-    branches:
-      - dev-sg
+on: push
 
 jobs:
   format:
