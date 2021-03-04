@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - master
-    tags:
-      - format/*
-
+      - dev-*/format
 jobs:
   format:
     runs-on: ubuntu-latest
