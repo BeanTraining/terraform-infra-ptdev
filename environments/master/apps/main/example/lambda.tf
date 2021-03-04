@@ -73,14 +73,9 @@ resource "aws_iam_role" "iam_for_lambda" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
- "sts:AssumeRole",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterface",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeInstances",
-        "ec2:AttachNetworkInterface"
-      ],
+      "Action": 
+ "sts:AssumeRole"
+      ,
 
       "Principal": {
         "Service": "lambda.amazonaws.com"
@@ -91,6 +86,10 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
+}
+resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
+    role       = aws_iam_role.lambda.name
+    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
 data "aws_s3_bucket_object" "mylambdacode" {
