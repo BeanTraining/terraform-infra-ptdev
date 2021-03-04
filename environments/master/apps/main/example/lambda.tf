@@ -18,6 +18,11 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 
+data "aws_s3_bucket_object" "mylambdacode" {
+  bucket = "479284709538-aws-lambda"
+  key    = "terraform-api/hello.zip"
+}
+
 resource "aws_lambda_function" "test_lambda" {
   s3_bucket   = "479284709538-aws-lambda"
   s3_key      = "terraform-api/hello.zip"
@@ -28,7 +33,7 @@ resource "aws_lambda_function" "test_lambda" {
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = filebase64sha256("terraform-api/hello.zip")
+  source_code_hash = filebase64sha256(data.aws_s3_bucket_object.mylambdacode)
 
   runtime = "provided"
 
