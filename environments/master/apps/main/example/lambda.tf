@@ -21,6 +21,7 @@ EOF
 data "aws_s3_bucket_object" "mylambdacode" {
   bucket = "479284709538-aws-lambda"
   key    = "terraform-api/hello.zip"
+  region = "us-west-2"
 }
 
 resource "aws_lambda_function" "test_lambda" {
