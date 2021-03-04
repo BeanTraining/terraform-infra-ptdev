@@ -19,13 +19,12 @@ EOF
 }
 
 data "aws_s3_bucket_object" "mylambdacode" {
-  bucket = "479284709538-aws-lambda"
+  bucket = "479284709538-${var.aws_region}-aws-lambda"
   key    = "terraform-api/hello.zip"
-  region = "us-west-2"
 }
 
 resource "aws_lambda_function" "test_lambda" {
-  s3_bucket   = "479284709538-aws-lambda"
+  s3_bucket   = "479284709538-${var.aws_region}-aws-lambda"
   s3_key      = "terraform-api/hello.zip"
   function_name = "hellotfc"
   role          = aws_iam_role.iam_for_lambda.arn
