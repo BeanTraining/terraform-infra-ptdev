@@ -73,7 +73,15 @@ resource "aws_iam_role" "iam_for_lambda" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": "sts:AssumeRole",
+      "Action": [
+ "sts:AssumeRole",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeInstances",
+        "ec2:AttachNetworkInterface"
+      ],
+
       "Principal": {
         "Service": "lambda.amazonaws.com"
       },
