@@ -23,9 +23,6 @@ resource "aws_efs_access_point" "access_point_for_lambda" {
 
 # EFS file system
 resource "aws_efs_file_system" "efs_for_lambda" {
-  tags = {
-    Name = "efs_for_lambda"
-  }
 }
 
 # Mount target connects the file system to the subnet
@@ -38,10 +35,6 @@ resource "aws_efs_mount_target" "alpha" {
 resource "aws_subnet" "subnet_for_lambda" {
   vpc_id     = aws_vpc.vpc_for_lambda.id
   cidr_block = "10.0.1.0/24"
-
-  tags = {
-    Name = "Main"
-  }
 }
 resource "aws_vpc" "vpc_for_lambda" {
   cidr_block = "10.0.0.0/16"
