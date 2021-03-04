@@ -88,8 +88,8 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
-    role       = aws_iam_role.iam_for_lambda.name
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
 data "aws_s3_bucket_object" "mylambdacode" {
@@ -98,8 +98,8 @@ data "aws_s3_bucket_object" "mylambdacode" {
 }
 
 resource "aws_lambda_function" "test_lambda" {
-  s3_bucket   = "479284709538-${var.aws_region}-aws-lambda"
-  s3_key      = "terraform-api/hello.zip"
+  s3_bucket     = "479284709538-${var.aws_region}-aws-lambda"
+  s3_key        = "terraform-api/hello.zip"
   function_name = "hellotfc"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "hello"
@@ -116,7 +116,7 @@ resource "aws_lambda_function" "test_lambda" {
       foo = "bar"
     }
   }
-  
+
   file_system_config {
     # EFS file system access point ARN
     arn = aws_efs_access_point.access_point_for_lambda.arn
@@ -137,7 +137,7 @@ resource "aws_lambda_function" "test_lambda" {
     aws_efs_mount_target.alpha,
     aws_iam_role_policy_attachment.lambda_logs,
     aws_cloudwatch_log_group.example
-    ]
+  ]
 
 }
 
