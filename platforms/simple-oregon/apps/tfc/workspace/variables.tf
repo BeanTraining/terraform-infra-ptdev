@@ -16,11 +16,16 @@ variable "api_key" {
   default = "123456789"
 }
 
+variable "organisation" {
+  default = "BeanTraining"
+}
+
 variable "environment" {}
 
 # tfe_variables.tf
 variable "private_key" {}
 variable "platform" {}
+
 variable "infra_stage" {}
 # tfe_variables.tf but only required for child ws
 variable "aws_account_id" {}

@@ -17,16 +17,16 @@ module "tfe_workspaces" {
   app_type              = "apps"
   tfe_ssh_key_id        = tfe_ssh_key.this.id
   
-  depends_on = [
-    tfe_ssh_key.this,
-  ]
+  # depends_on = [
+  #   tfe_ssh_key.this,
+  # ]
 
 }
 
 # Create a private SSH key for downloading Terraform modules from Git-based module sources
 # . This key is not used for cloning the workspace VCS repository or for provisioner connections.
 resource "tfe_ssh_key" "this" {
-  name         = var.ssh_key_name != "" ? var.ssh_key_name : "${var.environment}-${var.platform}-${var.app_type}-ssh-key"
+  name         = var.ssh_key_name != "" ? var.ssh_key_name : "${var.environment}-${var.platform}-apps-ssh-key"
   organization = var.organisation
   key          = var.private_key
 }
