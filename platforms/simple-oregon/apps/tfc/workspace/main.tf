@@ -16,6 +16,11 @@ module "tfe_workspaces" {
   github_oauth_token    = var.github_oauth_token
   app_type              = "apps"
   tfe_ssh_key_id        = tfe_ssh_key.this.id
+  
+  depends_on = [
+    tfe_ssh_key.this,
+  ]
+
 }
 
 # Create a private SSH key for downloading Terraform modules from Git-based module sources
