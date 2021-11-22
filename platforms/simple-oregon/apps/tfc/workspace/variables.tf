@@ -28,3 +28,7 @@ variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 variable "tfe_token" {}
 variable "github_oauth_token" {}
+
+variable "ssh_key_name" {
+  default = ""
+}
