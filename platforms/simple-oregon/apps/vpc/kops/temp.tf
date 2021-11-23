@@ -34,6 +34,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   subnet_id     = module.skeleton.vpc_public_subnet_ids[0]
+  key_name      = "shared_deployer_peterbean"
 
   tags = {
     Name = "HelloWorld"
@@ -44,7 +45,8 @@ resource "aws_instance" "private" {
   ami           = data.aws_ami.amazon2.id
   instance_type = "t4g.micro"
   subnet_id     = module.skeleton.vpc_private_subnet_ids[0]
-
+  key_name      = "shared_deployer_peterbean"
+  
   tags = {
     Name = "PrivateInstance"
   }
