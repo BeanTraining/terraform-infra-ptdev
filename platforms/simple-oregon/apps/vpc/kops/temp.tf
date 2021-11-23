@@ -58,7 +58,7 @@ resource "aws_instance" "private" {
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
   description = "Allow ALL inbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.skeleton.vpc_id
 
   ingress {
     description      = "TLS from VPC"
