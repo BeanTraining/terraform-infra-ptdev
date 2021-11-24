@@ -82,8 +82,14 @@ resource "aws_instance" "nat" {
   key_name      = "shared_deployer_peterbean"
 
   tags = {
-    Name = "Bastion"
+    Name = "NAT managed by tf"
   }
+}
+
+resource "aws_route" "nat" {
+  route_table_id              = module.skeleton.vpc_private_route_table_ids[0]
+  destination_cidr_block    = "0.0.0.0/0"
+  network_interface_id      = aws_egress_only_internet_gateway.egress.id
 }
 
 resource "aws_security_group" "allow_all" {
