@@ -46,7 +46,7 @@ data "aws_ami" "nat_ami_amazon2" {
   owners = ["606500562958"] # Canonical
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "bastion" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   subnet_id     = module.skeleton.vpc_public_subnet_ids[0]
