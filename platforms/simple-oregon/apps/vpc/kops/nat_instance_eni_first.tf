@@ -115,7 +115,7 @@ resource "aws_instance" "nat" {
 
 resource "aws_network_interface" "nat" {
   subnet_id       = module.skeleton.vpc_public_subnet_ids[0]
-  private_ips     = ["10.0.4.1"]
+  private_ips     = ["10.0.4.10"]
   security_groups = [aws_security_group.allow_all.id]
 }
 
