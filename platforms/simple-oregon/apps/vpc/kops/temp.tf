@@ -30,6 +30,22 @@ data "aws_ami" "amazon2" {
   owners = ["amazon"] # Canonical
 }
 
+data "aws_ami" "nat_ami_amazon2" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["NatInstanceBuiltManually-amazon2-arm-v1"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["606500562958"] # Canonical
+}
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
@@ -53,6 +69,20 @@ resource "aws_instance" "private" {
   
   tags = {
     Name = "PrivateInstance"
+  }
+}
+
+resource "aws_instance" "nat" {
+  source_dest_check = false
+  ami           = data.aws_ami.nat_ami_amazon2.id
+  instance_type = "t3.micro"
+  subnet_id     = module.skeleton.vpc_public_subnet_ids[0]
+  vpc_security_group_ids = [aws_security_group.allow_all.id]
+  
+  key_name      = "shared_deployer_peterbean"
+
+  tags = {
+    Name = "Bastion"
   }
 }
 
