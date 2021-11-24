@@ -75,7 +75,7 @@ resource "aws_instance" "private" {
 resource "aws_instance" "nat" {
   source_dest_check = false
   ami           = data.aws_ami.nat_ami_amazon2.id
-  instance_type = "t3.micro"
+  instance_type = "t4g.micro"
   subnet_id     = module.skeleton.vpc_public_subnet_ids[0]
   vpc_security_group_ids = [aws_security_group.allow_all.id]
   
