@@ -82,8 +82,6 @@ resource "aws_instance" "nat" {
     device_index         = 0
   }
 
-  vpc_security_group_ids = [aws_security_group.allow_all.id]
-  
   key_name      = "shared_deployer_peterbean"
 
   tags = {
