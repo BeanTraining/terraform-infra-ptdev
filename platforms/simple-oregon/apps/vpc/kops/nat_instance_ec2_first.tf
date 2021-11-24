@@ -89,7 +89,7 @@ resource "aws_instance" "nat" {
 resource "aws_route" "nat" {
   route_table_id              = module.skeleton.vpc_private_route_table_ids[0]
   destination_cidr_block    = "0.0.0.0/0"
-  network_interface_id      = aws_egress_only_internet_gateway.egress.id
+  network_interface_id      = aws_instance.nat.primary_network_interface_id
 }
 
 resource "aws_security_group" "allow_all" {
