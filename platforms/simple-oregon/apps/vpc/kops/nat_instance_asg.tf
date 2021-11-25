@@ -57,8 +57,6 @@ resource "aws_instance" "private" {
   }
 }
 
-
-
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
   description = "Allow ALL inbound traffic"
