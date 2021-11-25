@@ -4,4 +4,5 @@ module "skeleton" {
   # cidr_block      = var.cidr_block
   bounded_context = "network"
   nat_instance_sg_id = aws_security_group.allow_all.id
+  aws_region = var.aws_region
 }
