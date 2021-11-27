@@ -1,39 +1,18 @@
-# tfe_workspace_commons.tf
-variable "workspaces" {
-  type = list(object({
-    app_type         = string
-    app_category     = string
-    app_name         = string
-    auto_apply       = bool
-    trigger_prefixes = list(string)
-    depends_on       = string
-    execution_mode   = string
-    is_vcs_connected = bool
-  }))
+
+variable "bounded_context" {
+  type = string
 }
 
-variable "api_key" {
-  default = "123456789"
-}
-
-variable "organisation" {
-  default = "BeanTraining"
-}
-
-variable "environment" {}
-
-# tfe_variables.tf
-variable "private_key" {}
+variable "app_type" {}
+variable "app_category" {}
+variable "app_name" {}
 variable "platform" {}
+variable "environment" {}
+variable "organisation" {}
 
-variable "infra_stage" {}
-# tfe_variables.tf but only required for child ws
-variable "aws_account_id" {}
+locals {
+  app_name = "${var.environment}-${var.platform}-${var.app_type}-${var.app_category}-${var.app_name}"
+}
+variable "aws_region" {}
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
-variable "tfe_token" {}
-variable "github_oauth_token" {}
-
-# variable "ssh_key_name" {
-#   default = ""
-# }
