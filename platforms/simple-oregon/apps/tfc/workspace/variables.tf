@@ -37,3 +37,5 @@ variable "github_oauth_token" {}
 # variable "ssh_key_name" {
 #   default = ""
 # }
+
+variable "state" {}
