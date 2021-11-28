@@ -18,3 +18,12 @@ locals {
 variable "aws_region" {}
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
+
+variable "vpc_peerings" {
+  type = list(object({
+    peer_vpc_id   = string
+    vpc_id        = string
+    peer_provider = string
+    peer_region   = string
+  }))
+}
