@@ -9,7 +9,6 @@ module "skeleton" {
   cidr_block                 = var.cidr_block
   public_subnet_cidr_blocks  = var.public_subnet_cidr_blocks
   private_subnet_cidr_blocks = var.private_subnet_cidr_blocks
-  vpc_peerings               = var.vpc_peerings
 }
 
 resource "aws_security_group" "allow_all" {
