@@ -1,7 +1,7 @@
-bounded_context            = "network"
-app_name                   = "crossenv"
-app_category               = "vpc"
-app_type                   = "apps"
+bounded_context = "network"
+app_name        = "crossenv"
+app_category    = "vpc"
+app_type        = "apps"
 
 cidr_block                 = "172.32.0.0/16"
 public_subnet_cidr_blocks  = ["172.32.64.0/24", "172.32.65.0/24", "172.32.66.0/24"]
