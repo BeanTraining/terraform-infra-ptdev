@@ -4,7 +4,7 @@ module "skeleton" {
   # cidr_block      = var.cidr_block
   bounded_context            = "network"
   nat_instance_sg_id         = aws_security_group.allow_all.id
-  nat_instance_private_ip    = "172.32.64.10"
+  nat_instance_private_ip    = var.nat_instance_private_ip
   aws_region                 = var.aws_region
   cidr_block                 = var.cidr_block
   public_subnet_cidr_blocks  = var.public_subnet_cidr_blocks

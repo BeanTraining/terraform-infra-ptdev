@@ -1,6 +1,7 @@
 variable "cidr_block" {}
 variable "public_subnet_cidr_blocks" {}
 variable "private_subnet_cidr_blocks" {}
+variable "nat_instance_private_ip" {}
 
 variable "bounded_context" {}
 
@@ -21,9 +22,10 @@ variable "aws_secret_access_key" {}
 
 variable "vpc_peerings" {
   type = list(object({
-    peer_vpc_id   = string
-    vpc_id        = string
-    peer_provider = string
-    peer_region   = string
+    vpc_id                     = string
+    peer_vpc_id                = string
+    peer_aws_region            = string
+    peer_aws_access_key_id     = string
+    peer_aws_secret_access_key = string
   }))
 }
