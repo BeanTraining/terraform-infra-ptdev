@@ -40,7 +40,7 @@ resource "aws_instance" "bastion" {
   key_name = "shared_deployer_peterbean"
 
   tags = {
-    Name = "Bastion"
+    Name = "Kops Bastion"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_instance" "private" {
   key_name = "shared_deployer_peterbean"
 
   tags = {
-    Name = "PrivateInstance"
+    Name = "Kops PrivateInstance"
   }
 }
 
