@@ -61,12 +61,17 @@ variable "vpc_names" {
   default = ["one", "two", "three", "four", "five", "six"]
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "first_set" {
   for_each = var.vpc_names
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "second_set" {
+  for_each = var.vpc_names
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_vpc" "third_set" {
   for_each = var.vpc_names
   cidr_block = "10.0.0.0/16"
 }
