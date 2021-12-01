@@ -56,23 +56,4 @@ data "aws_ami" "amazon2" {
 #   }
 # }
 
-variable "vpc_names" {
-  type = set(string)
-  default = ["one", "two", "three", "four", "five", "six"]
-}
-
-resource "aws_vpc" "first_set" {
-  for_each = var.vpc_names
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_vpc" "second_set" {
-  for_each = var.vpc_names
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_vpc" "third_set" {
-  for_each = var.vpc_names
-  cidr_block = "10.0.0.0/16"
-}
 
