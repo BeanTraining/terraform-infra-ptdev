@@ -1,6 +1,7 @@
-variable "cidr_block" {
-  type = string
-}
+variable "cidr_block" {}
+variable "public_subnet_cidr_blocks" {}
+variable "private_subnet_cidr_blocks" {}
+variable "nat_instance_private_ip" {}
 
 variable "bounded_context" {
   type = string
