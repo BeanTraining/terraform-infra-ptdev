@@ -10,7 +10,7 @@ workspaces = [
     trigger_prefixes = []
     is_vcs_connected = true
   },
-{
+  {
     app_type         = "apps"
     app_category     = "vpc"
     app_name         = "cicd"
