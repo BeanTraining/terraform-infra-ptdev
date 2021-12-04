@@ -35,3 +35,12 @@ resource "aws_security_group" "allow_all" {
     Name = "allow_all"
   }
 }
+
+module "from_ptdev_cicd_to_ptdev_kops" {
+  source      = "git::ssh://git@github.com/BeanTraining/terraform-infra-skeleton.git//transit/vpc_peering?ref=ptdev"
+  peer_vpc_id = "vpc-014deb4e4d3877e44"
+  vpc_id      = "vpc-06e759b94f2c2eea0"
+  providers = {
+    aws.peer = aws
+  }
+}
