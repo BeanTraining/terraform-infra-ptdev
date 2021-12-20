@@ -4,7 +4,7 @@ terraform {
     organization = "BeanTraining"
 
     workspaces {
-      name = "ptdev-simple-oregon-apps-vpc-kops"
+      name = "ptdev-simple-oregon-apps-vpc-cicd"
     }
   }
 }

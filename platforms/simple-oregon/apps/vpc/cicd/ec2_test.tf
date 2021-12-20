@@ -57,3 +57,32 @@ data "aws_ami" "amazon2" {
 # }
 
 
+# data "aws_eks_cluster" "eks" {
+#   name = module.eks.cluster_id
+# }
+
+# data "aws_eks_cluster_auth" "eks" {
+#   name = module.eks.cluster_id
+# }
+
+# provider "kubernetes" {
+#   host                   = data.aws_eks_cluster.eks.endpoint
+#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+#   token                  = data.aws_eks_cluster_auth.eks.token
+# }
+
+# module "eks" {
+#   source = "terraform-aws-modules/eks/aws"
+
+#   cluster_version = "1.21"
+#   cluster_name    = "my-cluster"
+#   vpc_id          = "vpc-06e759b94f2c2eea0"
+#   subnets         = ["subnet-004014c1a85a75b6b", "subnet-0954f86b60b600a9d"]
+
+#   worker_groups = [
+#     {
+#       instance_type = "m4.large"
+#       asg_max_size  = 5
+#     }
+#   ]
+# }
