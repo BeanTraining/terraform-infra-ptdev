@@ -38,3 +38,11 @@ variable "lambda_schedule_expression" {
   default     = ""
   description = "default = no cron job"
 }
+
+variable "project" {
+  type = string
+}
+
+variable "service_name" {
+  type = string
+}
